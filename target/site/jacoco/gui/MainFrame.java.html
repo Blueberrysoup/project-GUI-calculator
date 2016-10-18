@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="sv"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project-GUI-calculator</a> &gt; <a href="index.source.html" class="el_package">gui</a> &gt; <span class="el_source">MainFrame.java</span></div><h1>MainFrame.java</h1><pre class="source lang-java linenums">/***
+* MainFrame class
+* @author: Carina Ekström
+* @version: 1.0
+**/
+
+package gui;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import otherclasses.Calculator;
+
+public class MainFrame {
+
+	private JFrame frame;
+	private JTextField textField;
+	private JTextField textField_1;
+<span class="nc" id="L30">	private JLabel lblResult = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L31">	private Calculator calc = new Calculator();</span>
+<span class="nc" id="L32">	private DecimalFormat df = new DecimalFormat(&quot;#,###.##&quot;, new DecimalFormatSymbols(new Locale(&quot;sv&quot;, &quot;SE&quot;)));</span>
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+<span class="nc" id="L38">		EventQueue.invokeLater(new Runnable() {</span>
+			public void run() {
+				try {
+<span class="nc" id="L41">					MainFrame window = new MainFrame();</span>
+<span class="nc" id="L42">					window.frame.setVisible(true);</span>
+<span class="nc" id="L43">				} catch (Exception e) {</span>
+<span class="nc" id="L44">					e.printStackTrace();</span>
+<span class="nc" id="L45">				}</span>
+<span class="nc" id="L46">			}</span>
+		});
+<span class="nc" id="L48">	}</span>
+
+	/**
+	 * Create the application.
+	 */
+<span class="nc" id="L53">	public MainFrame() {</span>
+<span class="nc" id="L54">		initialize();</span>
+<span class="nc" id="L55">	}</span>
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+<span class="nc" id="L61">		frame = new JFrame();</span>
+<span class="nc" id="L62">		frame.setBackground(Color.WHITE);</span>
+<span class="nc" id="L63">		frame.getContentPane().setBackground(Color.WHITE);</span>
+<span class="nc" id="L64">		frame.getContentPane().setLayout(null);</span>
+		
+<span class="nc" id="L66">		JLabel lblNumber = new JLabel(&quot;Number 1:&quot;);</span>
+<span class="nc" id="L67">		lblNumber.setBounds(50, 30, 75, 15);</span>
+<span class="nc" id="L68">		frame.getContentPane().add(lblNumber);</span>
+		
+<span class="nc" id="L70">		JLabel lblNumber_1 = new JLabel(&quot;Number 2:&quot;);</span>
+<span class="nc" id="L71">		lblNumber_1.setBounds(50, 60, 75, 15);</span>
+<span class="nc" id="L72">		frame.getContentPane().add(lblNumber_1);</span>
+		
+<span class="nc" id="L74">		textField = new JTextField();</span>
+<span class="nc" id="L75">		textField.setBounds(170, 30, 114, 19);</span>
+<span class="nc" id="L76">		frame.getContentPane().add(textField);</span>
+<span class="nc" id="L77">		textField.setColumns(10);</span>
+		
+<span class="nc" id="L79">		textField_1 = new JTextField();</span>
+<span class="nc" id="L80">		textField_1.setBounds(170, 60, 114, 19);</span>
+<span class="nc" id="L81">		frame.getContentPane().add(textField_1);</span>
+<span class="nc" id="L82">		textField_1.setColumns(10);</span>
+		
+<span class="nc" id="L84">		JButton button = new JButton(&quot;+&quot;);</span>
+<span class="nc" id="L85">		button.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				try{
+<span class="nc" id="L88">					Double result = calc.add(Double.parseDouble(textField.getText()), Double.parseDouble(textField_1.getText()));</span>
+<span class="nc" id="L89">					lblResult.setText(df.format(result).toString());</span>
+<span class="nc" id="L90">				}catch(NumberFormatException e1){</span>
+<span class="nc" id="L91">					lblResult.setText(&quot;Use . for decimal numbers&quot;);</span>
+<span class="nc" id="L92">				}</span>
+<span class="nc" id="L93">			}</span>
+		});
+<span class="nc" id="L95">		button.setBounds(85, 106, 117, 25);</span>
+<span class="nc" id="L96">		frame.getContentPane().add(button);</span>
+		
+<span class="nc" id="L98">		JButton button_1 = new JButton(&quot;-&quot;);</span>
+<span class="nc" id="L99">		button_1.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				try{
+<span class="nc" id="L102">					Double result = calc.subtract(Double.parseDouble(textField.getText()), Double.parseDouble(textField_1.getText()));</span>
+<span class="nc" id="L103">					lblResult.setText(df.format(result).toString());</span>
+<span class="nc" id="L104">				}catch(NumberFormatException e1){</span>
+<span class="nc" id="L105">					lblResult.setText(&quot;Use . for decimal numbers&quot;);</span>
+<span class="nc" id="L106">				}</span>
+
+<span class="nc" id="L108">			}</span>
+		});
+<span class="nc" id="L110">		button_1.setBounds(248, 106, 117, 25);</span>
+<span class="nc" id="L111">		frame.getContentPane().add(button_1);</span>
+		
+<span class="nc" id="L113">		JButton button_2 = new JButton(&quot;*&quot;);</span>
+<span class="nc" id="L114">		button_2.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				try{
+<span class="nc" id="L117">					Double result = calc.multiply(Double.parseDouble(textField.getText()), Double.parseDouble(textField_1.getText()));</span>
+<span class="nc" id="L118">					lblResult.setText(df.format(result).toString());</span>
+<span class="nc" id="L119">				}catch(NumberFormatException e1){</span>
+<span class="nc" id="L120">					lblResult.setText(&quot;Use . for decimal numbers&quot;);</span>
+<span class="nc" id="L121">				}</span>
+
+<span class="nc" id="L123">			}</span>
+		});
+<span class="nc" id="L125">		button_2.setBounds(85, 156, 117, 25);</span>
+<span class="nc" id="L126">		frame.getContentPane().add(button_2);</span>
+		
+<span class="nc" id="L128">		JButton button_3 = new JButton(&quot;/&quot;);</span>
+<span class="nc" id="L129">		button_3.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				try{
+<span class="nc" id="L132">					Double result = calc.divide(Double.parseDouble(textField.getText()), Double.parseDouble(textField_1.getText()));</span>
+<span class="nc" id="L133">					lblResult.setText(df.format(result).toString());</span>
+<span class="nc" id="L134">				}catch(NumberFormatException e1){</span>
+<span class="nc" id="L135">					lblResult.setText(&quot;Use . for decimal numbers&quot;);</span>
+<span class="nc" id="L136">				}</span>
+
+<span class="nc" id="L138">			}</span>
+		});
+<span class="nc" id="L140">		button_3.setBounds(248, 156, 117, 25);</span>
+<span class="nc" id="L141">		frame.getContentPane().add(button_3);</span>
+		
+<span class="nc" id="L143">		JLabel lblResultText = new JLabel(&quot;Result:&quot;);</span>
+<span class="nc" id="L144">		lblResultText.setBounds(50, 217, 70, 15);</span>
+<span class="nc" id="L145">		frame.getContentPane().add(lblResultText);</span>
+<span class="nc" id="L146">		lblResult.setHorizontalAlignment(SwingConstants.LEFT);</span>
+		
+<span class="nc" id="L148">		lblResult.setBounds(115, 217, 270, 15);</span>
+<span class="nc" id="L149">		frame.getContentPane().add(lblResult);</span>
+<span class="nc" id="L150">		frame.setBounds(100, 100, 450, 300);</span>
+<span class="nc" id="L151">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L152">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
